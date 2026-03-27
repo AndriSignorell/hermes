@@ -1,0 +1,21 @@
+Package: hermes
+Title: Interface to MS-Office for the DescToolsX ecosystem
+Version: 0.0.0.901
+Authors@R: 
+    person("Andri", "Signorell", , "andri@signorell.net", role = c("aut", "cre"))
+Description: Provides Office routines used in DescToolsX.
+Depends: R (>= 4.2.0)
+License: GPL (>= 2)
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.3
+Imports: RDCOMClient, bedrock, readxl, writexl
+Suggests:
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+LazyData: true
+Additional_repositories: http://www.omegahat.net/R
+URL: https://andrisignorell.github.io/hermes/,
+            https://github.com/AndriSignorell/hermes/
+BugReports: https://github.com/AndriSignorell/hermes/issues
+
