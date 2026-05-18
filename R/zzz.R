@@ -5,10 +5,11 @@
   # presetting DescTools options not already defined by the user
   op <- options()
   
+  # not needed with new wrd env approach
   pkg.op <- list(
-    DescToolsX.lastWrd   = NULL,
-    DescToolsX.lastXL    = NULL,
-    DescToolsX.lastPP    = NULL
+  #   hermes.lastWrd   = NULL,
+  #   hermes.lastXL    = NULL,
+  #   hermes.lastPP    = NULL
   )
   
   toset <- !(names(pkg.op) %in% names(op))
@@ -22,6 +23,7 @@ utils::globalVariables("wdConst")
 #' @importFrom bedrock setNamesX
 #' @importFrom readxl read_xlsx
 #' @importFrom writexl write_xlsx
-#'  
+#' @importFrom aurora strLeft strTrim
+#'   
 #' @import RDCOMClient
 NULL           

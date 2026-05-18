@@ -104,6 +104,7 @@ toWrd.character <- function(x, font = NULL, para = NULL,
 
 # == internal helper functions =============================================
 
+#' @export
 .wrdInsertAfter <- function(x, remove=TRUE, wrd){
   
   # RDCOMClient together with InsertAfter inserts a number of 

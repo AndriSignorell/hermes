@@ -89,6 +89,8 @@ setWrd <- function(wrd) {
 #' @export
 getWrd <- function(create = TRUE) {
   
+  .ensure_rdccomclient()
+  
   wrd <- .wrd_env$default
   
   # 1. vorhandene Session prüfen
@@ -117,6 +119,8 @@ getWrd <- function(create = TRUE) {
   
   NULL
 }
+
+
 
 
 #' Temporarily Use a Word Session
@@ -183,9 +187,7 @@ closeWrd <- function(save = FALSE) {
 #' @keywords internal
 .createCOMApp <- function(app, visible = NULL) {
   
-  if (!requireNamespace("RDCOMClient", quietly = TRUE)) {
-    stop("RDCOMClient is required but not installed", call. = FALSE)
-  }
+  .ensure_rdccomclient()
   
   if (Sys.info()[["sysname"]] != "Windows") {
     stop("COM is only available on Windows", call. = FALSE)
@@ -203,6 +205,23 @@ closeWrd <- function(save = FALSE) {
   
   obj
 }
+
+
+
+.ensure_rdccomclient <- function() {
+  
+  if (!requireNamespace("RDCOMClient", quietly = TRUE)) {
+    stop("RDCOMClient is required but not installed", call. = FALSE)
+  }
+  
+  if (!"package:RDCOMClient" %in% search()) {
+    attachNamespace("RDCOMClient")
+  }
+  
+  invisible(TRUE)
+}
+
+
 
 
 #' @keywords internal

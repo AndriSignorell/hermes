@@ -1,0 +1,58 @@
+
+
+
+Name: Excel Range...
+Title: Import Excel range
+Description: Import a selected range in a running Excel instance
+Binding: GetExcelRange
+Interactive: true
+
+
+Name: Excel View
+Title: View selected object in XL
+Description: View selected object in XL
+Binding: xXlView
+Interactive: false
+
+
+Name: To Word
+Title: Send To Word
+Description: Send output of the selected object to Word
+Binding: ToWrd
+Interactive: false
+
+
+Name: To Word (with Bookmark)
+Title: Send Results of Selected Code To Word and Bookmark them
+Description: Send output of the selected object to Word and places a bookmark on the inserted text
+Binding: ToWrdWithBookmark
+Interactive: false
+
+
+Name: To Word Plot (with Bookmark)
+Title: Send Results of Selected Plot Code To Word and Bookmark it
+Description: Send output of the selected plot building code to Word and places a bookmark on the inserted plot
+Binding: ToWrdPlotWithBookmark
+Interactive: false
+
+
+Name: Bookmarks...
+Title: Bookmark Dialog
+Description: Display a dialog containing the bookmarks of the current Word document.
+Binding: dlgBookmark
+Interactive: true
+
+
+Name: Bookmark Update
+Title: Update a Bookmark in Word 
+Description: Update a Bookmark in Word with the results of the currently selected code in R
+Binding: UpdateBookmark
+Interactive: false
+
+
+Name: Bookmark Recreate Chunk
+Title: Create a Bookmark and execute Code Chunk in Word 
+Description: Create a Bookmark in Word and executes the code based on the currently selected code chunk
+Binding: RecreateBookmarkChunk
+Interactive: false
+
