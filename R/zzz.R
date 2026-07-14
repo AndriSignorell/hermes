@@ -23,7 +23,7 @@ utils::globalVariables("wdConst")
 #' @importFrom bedrock setNamesX
 #' @importFrom readxl read_xlsx
 #' @importFrom writexl write_xlsx
-#' @importFrom aurora strLeft strTrim
+#' @importFrom lyra strLeft strTrim
 #'   
 #' @import RDCOMClient
 NULL           

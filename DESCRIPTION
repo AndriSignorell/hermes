@@ -1,6 +1,6 @@
 Package: hermes
 Title: Interface to MS-Office for the DescToolsX ecosystem
-Version: 0.0.0.903
+Version: 0.0.0.904
 Authors@R: 
     person("Andri", "Signorell", , "andri@signorell.net", role = c("aut", "cre"))
 Description: Provides Office routines used in DescToolsX.
@@ -8,7 +8,7 @@ Depends: R (>= 4.2.0)
 License: GPL (>= 2)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-Imports: RDCOMClient, bedrock, readxl, writexl, aurora
+Imports: RDCOMClient, bedrock, readxl, writexl, lyra
 Suggests:
     testthat (>= 3.0.0), 
     rstudioapi (>= 0.1), manipulate

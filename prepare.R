@@ -7,7 +7,7 @@ devtools::check()
 devtools::install()
 devtools::build_manual(pkg = "C:/temp/DescToolsX")
 devtools::build_manual(pkg = "C:/temp/lumen")
-devtools::build_manual(pkg = "C:/temp/aurora")
+devtools::build_manual(pkg = "C:/temp/lyra")
 devtools::build_manual(pkg = "C:/temp/bedrock")
 
 

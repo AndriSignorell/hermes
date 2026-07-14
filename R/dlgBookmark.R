@@ -16,7 +16,7 @@ dlgBookmark <- function(){
                           icon = "info", type = "ok")
     
     if (length(var.name) > 0) {
-      vn <- aurora::strTrim(lst[var.name + 1])
+      vn <- lyra::strTrim(lst[var.name + 1])
       if(action=="select"){
         hermes::wrdGoto(vn)  
       }
@@ -82,11 +82,11 @@ dlgBookmark <- function(){
     lst <- as.character(tcltk::tkget(tlist.var, 0, "end"))
     
     if(ord == "a"){
-      v <- aurora::strTrim(sort(lst, decreasing = FALSE))
+      v <- lyra::strTrim(sort(lst, decreasing = FALSE))
     } else if(ord == "d"){
-      v <- aurora::strTrim(sort(lst, decreasing = TRUE))
+      v <- lyra::strTrim(sort(lst, decreasing = TRUE))
     } else {
-      v <- aurora::strTrim(.VarNames()[strsplit(tcltk::tclvalue(tbm_name), split=" ")[[1]] %in% .GetVarName(lst)])
+      v <- lyra::strTrim(.VarNames()[strsplit(tcltk::tclvalue(tbm_name), split=" ")[[1]] %in% .GetVarName(lst)])
     }
     
     .PopulateListBox(v)
@@ -95,7 +95,7 @@ dlgBookmark <- function(){
   
   .FilterVarList <- function(){
     
-    pat <- aurora::strTrim(tcltk::tclvalue(tffilter))
+    pat <- lyra::strTrim(tcltk::tclvalue(tffilter))
     # print(pat)
     if(pat=="")
       v <- .VarNames()
@@ -216,7 +216,7 @@ dlgBookmark <- function(){
   tcltk::tclServiceMode(on = FALSE)
   
   # create window
-  root <- .initDlg(width = 380, height = 550, resizex=TRUE, resizey=TRUE,
+  root <- .initDlg(width = 380, height = 550, resizex=FALSE, resizey=FALSE,
                    main=gettextf("Bookmarks (%s)", xname), ico="R")
   
   # define widgets
