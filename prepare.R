@@ -7,7 +7,7 @@ devtools::check()
 devtools::install()
 devtools::build_manual(pkg = "C:/temp/DescToolsX")
 devtools::build_manual(pkg = "C:/temp/lumen")
-devtools::build_manual(pkg = "C:/temp/lyra")
+devtools::build_manual(pkg = "C:/temp/pharos")
 devtools::build_manual(pkg = "C:/temp/bedrock")
 
 
@@ -21,8 +21,9 @@ devtools::check()
 install.packages("remotes")
 remotes::install_github("omegahat/RDCOMClient")
 
+pkgdown::build_site()
 
-hermes:::dlgBookmark()
+pons:::dlgBookmark()
 
 xlView(mtcars)
 mtcars
@@ -38,9 +39,9 @@ dat
 xlView(dat)
 
 
-library(hermes)
+library(pons)
 library(RDCOMClient)
 getWrdHwnd()
 
-debug(hermes:::getWrdHwnd)
+debug(pons:::getWrdHwnd)
 

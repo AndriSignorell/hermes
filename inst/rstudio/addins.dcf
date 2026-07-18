@@ -4,14 +4,14 @@
 Name: Excel Range...
 Title: Import Excel range
 Description: Import a selected range in a running Excel instance
-Binding: GetExcelRange
+Binding: xlImport
 Interactive: true
 
 
 Name: Excel View
 Title: View selected object in XL
 Description: View selected object in XL
-Binding: xXlView
+Binding: xxlView
 Interactive: false
 
 

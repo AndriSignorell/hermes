@@ -1,9 +1,8 @@
 
 
-#' xXlView
 #' Run xlView() on selected text.
 #' @export
-xXlView <- function()  .execFunction("hermes::xlView")
+xxlView <- function()  .execFunction("pons::xlView")
 
 
 
@@ -12,7 +11,7 @@ xXlView <- function()  .execFunction("hermes::xlView")
 
 .execFunction <- function(FUN) {
   
-  requireNamespace("hermes")
+  requireNamespace("pons")
   
   if (!rstudioapi::isAvailable()) {
     stop("RStudio API not available.")

@@ -7,9 +7,9 @@
   
   # not needed with new wrd env approach
   pkg.op <- list(
-  #   hermes.lastWrd   = NULL,
-  #   hermes.lastXL    = NULL,
-  #   hermes.lastPP    = NULL
+  #   pons.lastWrd   = NULL,
+  #   pons.lastXL    = NULL,
+  #   pons.lastPP    = NULL
   )
   
   toset <- !(names(pkg.op) %in% names(op))
@@ -23,7 +23,7 @@ utils::globalVariables("wdConst")
 #' @importFrom bedrock setNamesX
 #' @importFrom readxl read_xlsx
 #' @importFrom writexl write_xlsx
-#' @importFrom lyra strLeft strTrim
+#' @importFrom pharos strLeft strTrim
 #'   
 #' @import RDCOMClient
 NULL           

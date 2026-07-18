@@ -33,17 +33,17 @@ wrdGoto <- function(name,
                     wrd = NULL) {
   
   # do not remove, as add-ins mihgt need it even if not yet loaded
-  requireNamespace("hermes")
+  requireNamespace("pons")
   
   wrd <- .resolveWrd(wrd)
   
   if (is.null(what)) {
-    what <- hermes::wdConst$wdGoToBookmark
+    what <- pons::wdConst$wdGoToBookmark
   }
   
   wrdSel <- wrd[["Selection"]]
   
-  if (what == hermes::wdConst$wdGoToBookmark) {
+  if (what == pons::wdConst$wdGoToBookmark) {
     
     bookmarks <- .bookmarks(wrd)
     

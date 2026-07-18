@@ -3,7 +3,7 @@
 
 dlgBookmark <- function(){
   
-  requireNamespace("hermes")
+  requireNamespace("pons")
   requireNamespace("tcltk")
   
   .ManipBM <- function(action, newname=NULL) {
@@ -16,12 +16,12 @@ dlgBookmark <- function(){
                           icon = "info", type = "ok")
     
     if (length(var.name) > 0) {
-      vn <- lyra::strTrim(lst[var.name + 1])
+      vn <- pharos::strTrim(lst[var.name + 1])
       if(action=="select"){
-        hermes::wrdGoto(vn)  
+        pons::wrdGoto(vn)  
       }
       else if(action=="delete"){
-        res <- hermes::wrdDeleteBookmark(vn)  
+        res <- pons::wrdDeleteBookmark(vn)  
         if(res){
           
           # remove listentry
@@ -59,7 +59,7 @@ dlgBookmark <- function(){
   .BtnRename <- function() .ManipBM("rename", .GetNewName())
   
   .imgFile <- function(fn) {
-    system.file("extdata", fn, package = "hermes")
+    system.file("extdata", fn, package = "pons")
   }
   
   imgAsc <-  tcltk::tclVar()
@@ -82,11 +82,11 @@ dlgBookmark <- function(){
     lst <- as.character(tcltk::tkget(tlist.var, 0, "end"))
     
     if(ord == "a"){
-      v <- lyra::strTrim(sort(lst, decreasing = FALSE))
+      v <- pharos::strTrim(sort(lst, decreasing = FALSE))
     } else if(ord == "d"){
-      v <- lyra::strTrim(sort(lst, decreasing = TRUE))
+      v <- pharos::strTrim(sort(lst, decreasing = TRUE))
     } else {
-      v <- lyra::strTrim(.VarNames()[strsplit(tcltk::tclvalue(tbm_name), split=" ")[[1]] %in% .GetVarName(lst)])
+      v <- pharos::strTrim(.VarNames()[strsplit(tcltk::tclvalue(tbm_name), split=" ")[[1]] %in% .GetVarName(lst)])
     }
     
     .PopulateListBox(v)
@@ -95,7 +95,7 @@ dlgBookmark <- function(){
   
   .FilterVarList <- function(){
     
-    pat <- lyra::strTrim(tcltk::tclvalue(tffilter))
+    pat <- pharos::strTrim(tcltk::tclvalue(tffilter))
     # print(pat)
     if(pat=="")
       v <- .VarNames()

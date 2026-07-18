@@ -1,70 +1,144 @@
----
-
-editor_options: 
-  markdown: 
-    wrap: 72
----
-
-<!-- README.md is generated from README.Rmd. Please edit that file -->
+# pons <img src="man/figures/logo.png" align="right" height="139" alt="pons hex logo" />
 
 <!-- badges: start -->
-
-[![CRAN status](https://www.r-pkg.org/badges/version-last-release/hermes)](https://CRAN.R-project.org/package=hermes) [![downloads](https://cranlogs.r-pkg.org/badges/grand-total/hermes)](https://CRAN.R-project.org/package=hermes) [![downloads](http://cranlogs.r-pkg.org/badges/last-week/hermes)](https://CRAN.R-project.org/package=hermes) [![License: GPL v2+](https://img.shields.io/badge/License-GPL%20v2+-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html) [![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html) [![R build status](https://github.com/AndriSignorell/hermes/workflows/R-CMD-check/badge.svg)](https://github.com/AndriSignorell/hermes/actions) [![pkgdown](https://github.com/AndriSignorell/hermes/workflows/pkgdown/badge.svg)](https://andrisignorell.github.io/hermes/)
-
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![License: GPL (>= 2)](https://img.shields.io/badge/license-GPL%20(%3E%3D%202)-blue.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
+[![R-CMD-check](https://github.com/AndriSignorell/pons/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/AndriSignorell/pons/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-# hermes - Office Interface for DescToolsX
+> **pons** *(Latin: "bridge")* — a bridge between R and Microsoft Office.
 
-**hermes** contains functions to produce documents using MS Word (or PowerPoint) and functions to import data from Excel, based on the functions contained in the package DescToolsX (<https://CRAN.R-project.org/package=DescToolsX>).
+**pons** provides the MS-Office interface routines used throughout the
+[DescToolsX](https://github.com/AndriSignorell) ecosystem. It lets you drive
+Microsoft **Word** and **Excel** from R via
+[RDCOMClient](http://www.omegahat.net/RDCOMClient/): read and write ranges,
+move data both ways, and build reproducible reports without leaving the R
+console.
 
-Feedback, feature requests, bug reports and other suggestions are welcome! Please report problems to [GitHub issues tracker](https://github.com/AndriSignorell/hermes/issues).
+## Features
+
+- **Excel data transfer** — read the selected range(s) straight into a
+  `data.frame`, `matrix`, `list` or cross-`table`, with an interactive dialog
+  that also inserts ready-to-run code at your editor cursor.
+- **View data in Excel** — send any data frame to a fresh, formatted worksheet
+  for interactive inspection.
+- **Word automation** — insert text and objects, and create, rename, move to,
+  or delete bookmarks in the active document.
+- **Session management** — get, set, create, close, or temporarily switch the
+  active Word / Excel instance.
 
 ## Installation
 
-You can install the released version of **hermes** from [CRAN](https://CRAN.R-project.org) with:
+**pons** is not on CRAN. Install the development version from GitHub:
 
-``` r
-install.packages("hermes")
+```r
+# install.packages("remotes")
+remotes::install_github("AndriSignorell/pons")
 ```
 
-And the development version from GitHub with:
+`RDCOMClient` lives on the Omegahat repository and is Windows-only (it relies on
+COM automation). If it is not pulled in automatically, install it directly:
 
-``` r
-if (!require("remotes")) install.packages("hermes")
-remotes::install_github("AndriSignorell/hermes")
+```r
+install.packages("RDCOMClient", repos = "http://www.omegahat.net/R")
 ```
 
-# MS-Office
+> **Note.** MS-Office automation requires a local installation of Microsoft
+> Office on Windows. The COM-based functions do not work on macOS or Linux.
 
-To make use of MS-Office features, you must have Office in one of its variants installed. All `Wrd*`, `XL*` and `Pp*` functions require the package **RDCOMClient** to be installed as well. Hence the use of these functions is restricted to *Windows* systems. **RDCOMClient** can be installed with:
+## Getting data out of Excel
 
-``` r
-install.packages("RDCOMClient", repos="http://www.omegahat.net/R")
+Select a range in Excel, then let **pons** bring it into R. The interactive
+importer reads your current selection, asks how to organize it, and either
+returns / assigns the object or drops constructive code at your cursor:
+
+```r
+library(pons)
+
+xl <- getXl()      # attach the running Excel instance
+xlImport(xl)       # select a range in Excel first, then run this
 ```
 
-The *omegahat* repository does not benefit from the same update service as CRAN. So you may be forced to install a package compiled with an earlier version, which usually is not a problem. Use e.g. for R 4.3.x:
+Prefer to script it? The two building blocks under `xlImport()` are available
+on their own:
 
-``` r
-url <- "http://www.omegahat.net/R/bin/windows/contrib/4.2/RDCOMClient_0.96-1.zip"
-install.packages(url, repos = NULL, type = "binary")
+```r
+r <- xlGetRange(xl)                            # raw values + metadata
+attr(r, "address")                             # e.g. "A1:B34"
+
+xlParseRange(r, as = "data.frame", header = TRUE)
+xlParseRange(r, as = "matrix")
+xlParseRange(r, as = "table")   # 1st column -> rownames, 1st row -> colnames
 ```
 
-**RDCOMClient** does not exist for Mac or Linux, sorry.
+Several disjoint areas (e.g. `A1:A4` **and** `C3:D5`) are supported too: they
+can be returned as a list of matrices, or bound column-wise into a single
+`data.frame` (shorter columns padded with `NA`).
 
-# Warning
+## Getting data into Excel
 
-**Warning:** This package is still under development. Although the code seems meanwhile quite stable, until release of version 1.0 you should be aware that everything in the package might be subject to change. Backward compatibility is not yet guaranteed. Functions may be deleted or renamed and new syntax may be inconsistent with earlier versions. By release of version 1.0 the “deprecated-defunct process” will be installed.
+Push a data frame to a new, formatted worksheet:
 
-# Authors
-
-Andri Signorell\
-Helsana Versicherungen AG, Health Sciences, Zurich\
-HWZ University of Applied Sciences in Business Administration Zurich.
-
-**Maintainer:** Andri Signorell
-
-# Examples
-
-``` r
-library(hermes)
+```r
+xlView(iris)                    # opens iris in a fresh Excel sheet
+xlView(mtcars, freeze = TRUE)   # with a frozen header row
 ```
+
+## Automating Word
+
+Write to the active Word document and manage bookmarks:
+
+```r
+wrd <- newWrd()                          # start a new Word session
+toWrd("Hello World")                     # insert text
+toWrd(c("Line 1", "Line 2"), bullet = TRUE)
+
+wrdAddBookmark("results")                # bookmark the cursor position
+replaceBookmarkText("results", "42%")    # fill it in later
+wrdGoto("results")                       # jump back to it
+```
+
+## Function overview
+
+### Excel
+
+| Function | Purpose |
+|---|---|
+| `xlImport()` | Interactive, dialog-driven import of the selected range |
+| `xlGetRange()` | Read the raw values of the selected range(s) |
+| `xlParseRange()` | Organize raw range data into df / matrix / list / table |
+| `xlDataTransferDialog()` | Tcl/Tk front-end used by `xlImport()` |
+| `xlView()`, `xxlView()` | Open a data frame in Excel |
+| `getXl()`, `setXl()`, `newXl()`, `closeXl()`, `withXl()` | Session management |
+
+### Word
+
+| Function | Purpose |
+|---|---|
+| `toWrd()` | Insert content into the active document |
+| `wrdAddBookmark()`, `wrdBookmark()`, `wrdDeleteBookmark()` | Manage bookmarks |
+| `renameBookmark()`, `replaceBookmarkText()` | Edit bookmarks |
+| `wrdGoto()`, `bookmarkList()` | Navigate / list bookmarks |
+| `wdConst` | Word automation constants |
+| `getWrd()`, `setWrd()`, `newWrd()`, `closeWrd()`, `withWrd()` | Session management |
+
+### Utilities
+
+| Function | Purpose |
+|---|---|
+| `cmToPts()`, `ptsToCm()` | Convert between centimeters and typographic points |
+
+## Related packages
+
+**pons** is part of the **DescToolsX** ecosystem and is built to work alongside
+`bedrock`, `pharos`, and the other component packages.
+
+## Getting help
+
+- Documentation: <https://andrisignorell.github.io/pons/>
+- Bug reports and feature requests:
+  <https://github.com/AndriSignorell/pons/issues>
+
+## License
+
+GPL (>= 2) © Andri Signorell

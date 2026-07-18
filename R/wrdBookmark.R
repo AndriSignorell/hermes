@@ -48,7 +48,7 @@ bookmarkList <- function(wrd = NULL) {
         
         lst[[i]] <- data.frame(name=bm$name(),
                                pagenr=bm[["range"]]$information(
-                                 hermes::wdConst$wdActiveEndAdjustedPageNumber), 
+                                 pons::wdConst$wdActiveEndAdjustedPageNumber), 
                                id=bm[["range"]]$bookmarkid()
         )
       }

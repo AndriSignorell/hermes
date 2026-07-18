@@ -7,12 +7,12 @@
 
 ToWrdWithBookmark <- function(){
   
-  requireNamespace("hermes")
+  requireNamespace("pons")
   opt <- options(useFancyQuotes = FALSE); on.exit(options(opt))
   
   sel <- rstudioapi::getActiveDocumentContext()$selection[[1]]$text
   if(sel != "") {
-    bm <- eval(parse(text=gettextf("bm <- hermes::ToWrdB({%s})", sel)))
+    bm <- eval(parse(text=gettextf("bm <- pons::ToWrdB({%s})", sel)))
     rstudioapi::modifyRange(gettextf("## BookmarkName: %s\n{\n%s}\n", bm$name(), sel))
     
   } else {
@@ -24,12 +24,12 @@ ToWrdWithBookmark <- function(){
 
 ToWrdPlotWithBookmark <- function(){
   
-  requireNamespace("hermes")
+  requireNamespace("pons")
   opt <- options(useFancyQuotes = FALSE); on.exit(options(opt))
   
   sel <- rstudioapi::getActiveDocumentContext()$selection[[1]]$text
   if(sel != "") {
-    bm <- eval(parse(text=gettextf("bm <- hermes::ToWrdPlot(%s)", sQuote(gettextf("{%s}", sel)))))
+    bm <- eval(parse(text=gettextf("bm <- pons::ToWrdPlot(%s)", sQuote(gettextf("{%s}", sel)))))
     rstudioapi::modifyRange(gettextf("## BookmarkName: %s (width=15)\n{\n%s}\n", 
                                      bm$bookmark$name(), sel))
     
@@ -69,7 +69,7 @@ ToWrdPlotWithBookmark <- function(){
 
 UpdateBookmark <- function(){
   
-  requireNamespace("hermes")
+  requireNamespace("pons")
   
   sel <- rstudioapi::getActiveDocumentContext()$selection[[1]]$text
   
@@ -78,7 +78,7 @@ UpdateBookmark <- function(){
     bm <- .parseBookmark(sel)
     
     with(bm,    
-         if(!is.null(hermes::wrdBookmark(name = name))){
+         if(!is.null(pons::wrdBookmark(name = name))){
            .updateBookmark(bm)
            
          } else {
@@ -97,14 +97,14 @@ UpdateBookmark <- function(){
   
   with(bm, {
     
-    hermes::wrdGoto(name = name)
+    pons::wrdGoto(name = name)
     wrd[["Selection"]]$delete()
     
     if(type=="bmt") {         # text bookmark
-      eval(parse(text=gettextf('hermes::ToWrdB({%s}, bookmark="%s" %s)', code, name, args)))
+      eval(parse(text=gettextf('pons::ToWrdB({%s}, bookmark="%s" %s)', code, name, args)))
       
     } else if(type=="bmp") {  # plot bookmark
-      eval(parse(text=gettextf("hermes::ToWrdPlot(%s, bookmark='%s' %s)", sQuote(gettextf("{%s}", code)), name, args)))
+      eval(parse(text=gettextf("pons::ToWrdPlot(%s, bookmark='%s' %s)", sQuote(gettextf("{%s}", code)), name, args)))
       
     } else {
       warning(gettextf("unknown bookmark type %s", type)) # warning("unknown bookmark type")
@@ -121,7 +121,7 @@ UpdateBookmark <- function(){
 
 RecreateBookmarkChunk <- function(){
   
-  requireNamespace("hermes")
+  requireNamespace("pons")
   opt <- options(useFancyQuotes = FALSE); on.exit(options(opt))
   
   sel <- rstudioapi::getActiveDocumentContext()$selection[[1]]$text
@@ -134,8 +134,8 @@ RecreateBookmarkChunk <- function(){
     if(is.null(wrdBookmark(bm$name))){
       # create new bookmark with the name in bm
       if(sel=="\n") sel <- "'\n'"
-        hermes::wrdAddBookmark(name=bm$name)
-      # rstudioapi::sendToConsole(gettextf("hermes::wrdAddBookmark(name='%s')", bm$name), 
+        pons::wrdAddBookmark(name=bm$name)
+      # rstudioapi::sendToConsole(gettextf("pons::wrdAddBookmark(name='%s')", bm$name), 
       #                           focus = FALSE)
     }
     

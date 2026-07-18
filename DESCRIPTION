@@ -1,6 +1,6 @@
-Package: hermes
+Package: pons
 Title: Interface to MS-Office for the DescToolsX ecosystem
-Version: 0.0.0.904
+Version: 0.0.0.905
 Authors@R: 
     person("Andri", "Signorell", , "andri@signorell.net", role = c("aut", "cre"))
 Description: Provides Office routines used in DescToolsX.
@@ -8,14 +8,14 @@ Depends: R (>= 4.2.0)
 License: GPL (>= 2)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-Imports: RDCOMClient, bedrock, readxl, writexl, lyra
+Imports: RDCOMClient, bedrock, readxl, writexl, pharos
 Suggests:
     testthat (>= 3.0.0), 
     rstudioapi (>= 0.1), manipulate
 Config/testthat/edition: 3
 LazyData: true
 Additional_repositories: http://www.omegahat.net/R
-URL: https://andrisignorell.github.io/hermes/,
-            https://github.com/AndriSignorell/hermes/
-BugReports: https://github.com/AndriSignorell/hermes/issues
+URL: https://andrisignorell.github.io/pons/,
+            https://github.com/AndriSignorell/pons/
+BugReports: https://github.com/AndriSignorell/pons/issues
 Config/roxygen2/version: 8.0.0
